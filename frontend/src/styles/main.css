@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    /* 纸纹：极淡的噪点，避免大面积纯色显得呆板 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+  }
+
+  ::selection {
+    @apply bg-terracotta-soft text-ink;
+  }
+
+  /* 细一点的滚动条，配色跟着主题走 */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-line;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-faint;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+
+  .card-hand {
+    @apply rounded-2xl border border-line bg-white/70 shadow-hand;
+  }
+
+  /* 胶带贴纸：用在头像、卡片、标题上 */
+  .tape::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 76px;
+    height: 22px;
+    transform: translateX(-50%) rotate(-2.5deg);
+    background: rgba(232, 179, 156, 0.55);
+    border-left: 1px dashed rgba(164, 78, 46, 0.25);
+    border-right: 1px dashed rgba(164, 78, 46, 0.25);
+    z-index: 1;
+  }
+
+  .dashed-title {
+    @apply relative inline-block font-hand text-2xl text-ink;
+  }
+  .dashed-title::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-[2px] w-full;
+    background-image: linear-gradient(to right, #c4633f 0 8px, transparent 8px 14px);
+    background-size: 14px 2px;
+    background-repeat: repeat-x;
+    opacity: 0.55;
+  }
+
+  .btn-hand {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white/70 px-4 py-1.5 text-sm text-ink-soft transition;
+  }
+  .btn-hand:hover {
+    @apply border-terracotta-soft bg-terracotta-soft/30 text-terracotta-deep;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-terracotta px-5 py-2 text-sm font-medium text-white transition;
+  }
+  .btn-primary:hover {
+    @apply bg-terracotta-deep;
+  }
+  .btn-primary:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  .input-hand {
+    @apply w-full rounded-xl border border-line bg-white/80 px-3 py-2 text-sm text-ink outline-none transition placeholder:text-ink-faint;
+  }
+  .input-hand:focus {
+    @apply border-terracotta-soft ring-2 ring-terracotta-soft/30;
+  }
+
+  /* 文章正文排版 */
+  .article-body {
+    @apply prose prose-stone max-w-none;
+    @apply prose-headings:font-hand prose-headings:font-normal prose-headings:text-ink;
+    @apply prose-p:text-ink/90 prose-p:leading-8;
+    @apply prose-a:text-terracotta prose-a:underline prose-a:decoration-terracotta-soft prose-a:underline-offset-4;
+    @apply prose-strong:text-ink;
+    @apply prose-blockquote:border-l-terracotta-soft prose-blockquote:bg-paper-deep/60 prose-blockquote:py-1 prose-blockquote:not-italic;
+    @apply prose-code:rounded prose-code:bg-paper-deep prose-code:px-1.5 prose-code:py-0.5 prose-code:text-[0.9em] prose-code:font-mono prose-code:text-terracotta-deep prose-code:before:content-none prose-code:after:content-none;
+    @apply prose-pre:rounded-xl prose-pre:bg-[#332D28] prose-pre:text-paper;
+    @apply prose-li:text-ink/90;
+    @apply prose-hr:border-line;
+  }
+
+  .article-body pre code {
+    @apply bg-transparent p-0 text-inherit;
+  }
+
+  .article-body table {
+    @apply text-sm;
+  }
+
+  .article-body img {
+    @apply rounded-xl border border-line;
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.45s ease,
+      transform 0.45s ease;
+  }
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 路由切换过渡 */
+.page-enter-active,
+.page-leave-active {
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
