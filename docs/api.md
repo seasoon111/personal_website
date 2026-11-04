@@ -152,28 +152,34 @@
 
 ### GET /projects
 
-查询参数：`page`、`page_size`。按 `sort` 倒序、`id` 倒序。
+**不分页**，一次返回全部已发布项目，按 `sort` 倒序、`id` 倒序。列表不返回 `content_md` / `content_html`。
 
 ```json
 {
-  "id": 1,
-  "title": "个人网站",
-  "slug": "personal-website",
-  "summary": "……",
-  "cover_url": "/uploads/2026/11/xxx.png",
-  "tech_stack": ["Go", "Vue3"],
-  "repo_url": "https://github.com/",
-  "demo_url": "",
-  "sort": 30,
-  "status": "published",
-  "created_at": "……",
-  "updated_at": "……"
+  "code": 0,
+  "message": "ok",
+  "data": [
+    {
+      "id": 1,
+      "title": "个人网站",
+      "slug": "personal-website",
+      "summary": "……",
+      "cover_url": "/uploads/2026/11/xxx.png",
+      "tech_stack": ["Go", "Vue3"],
+      "repo_url": "https://github.com/",
+      "demo_url": "",
+      "sort": 30,
+      "status": "published",
+      "created_at": "……",
+      "updated_at": "……"
+    }
+  ]
 }
 ```
 
 ### GET /projects/:slug
 
-返回项目详情，含 `content_md` / `content_html`。
+返回单个项目对象（不是分页结构），含 `content_md` / `content_html`。
 
 ### GET /moments
 
