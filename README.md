@@ -8,11 +8,11 @@
 
 ## 技术栈
 
-| 层 | 选型 |
-| --- | --- |
-| 后端 | Go 1.26 · Gin · GORM · MySQL 8 · JWT · bcrypt · goldmark |
+| 层   | 选型                                                                                    |
+| ---- | --------------------------------------------------------------------------------------- |
+| 后端 | Go 1.26 · Gin · GORM · MySQL 8 · JWT · bcrypt · goldmark                          |
 | 前端 | Vue 3 · TypeScript · Vite 6 · Tailwind 3 · vue-router · Pinia · vue-i18n · axios |
-| 样式 | 自定义纸感主题 + `@tailwindcss/typography`，标题字体 LXGW WenKai（CDN） |
+| 样式 | 自定义纸感主题 + `@tailwindcss/typography`，标题字体 LXGW WenKai（CDN）               |
 
 ## 目录结构
 
@@ -93,16 +93,6 @@ npm install
 npm run dev                # http://127.0.0.1:5173
 ```
 
-### 4. 默认账号
-
-首次启动且 `users` 表为空时，会用 `.env` 里的 `ADMIN_USERNAME` / `ADMIN_PASSWORD` 建一个管理员：
-
-```
-admin / admin123
-```
-
-**登录后请立刻在「仪表盘 → 修改密码」里改掉。** 改密码后 `.env` 里的值不会自动同步，它只在首次建号时使用。
-
 ### 5. 写入示例内容（可选）
 
 后端和前端都起来之后：
@@ -115,12 +105,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\seed.ps1
 
 ## 常用脚本
 
-| 脚本 | 作用 |
-| --- | --- |
-| `scripts\dev.ps1` | 一键启动（建库、后端、前端） |
-| `scripts\seed.ps1` | 写入示例内容 |
-| `scripts\smoke-test.ps1` | 后端接口端到端测试（30 项） |
-| `scripts\backup.ps1` | 备份数据库和 uploads，默认保留 14 份 |
+| 脚本                        | 作用                                     |
+| --------------------------- | ---------------------------------------- |
+| `scripts\dev.ps1`         | 一键启动（建库、后端、前端）             |
+| `scripts\seed.ps1`        | 写入示例内容                             |
+| `scripts\smoke-test.ps1`  | 后端接口端到端测试（30 项）              |
+| `scripts\backup.ps1`      | 备份数据库和 uploads，默认保留 14 份     |
 | `scripts\admin-smoke.mjs` | 用无头 Chrome 检查后台各页面是否正常渲染 |
 
 前端命令：
@@ -134,18 +124,18 @@ npm run preview    # 预览构建结果
 
 ## 配置项（backend\.env）
 
-| 键 | 说明 | 默认 |
-| --- | --- | --- |
-| `APP_ENV` | `development` / `production` | development |
-| `SERVER_PORT` | 后端端口 | 8080 |
-| `DB_HOST` `DB_PORT` `DB_USER` `DB_PASSWORD` `DB_NAME` | MySQL 连接 | 127.0.0.1 / 3306 / root / — / personal_website |
-| `JWT_SECRET` | 签名密钥，至少 16 位 | — |
-| `JWT_TTL_HOURS` | 登录有效期（小时） | 168 |
-| `ADMIN_USERNAME` `ADMIN_PASSWORD` | 首次建管理员用 | admin / admin123 |
-| `SITE_NAME` `SITE_DESCRIPTION` `SITE_ICP` | 站点信息 | 个人网站 / … / 空 |
-| `UPLOAD_DIR` | 图片存放目录 | ./uploads |
-| `UPLOAD_MAX_MB` | 单张图片大小上限 | 10 |
-| `CORS_ORIGINS` | 允许的前端来源，逗号分隔 | http://localhost:5173,http://127.0.0.1:5173 |
+| 键                                                              | 说明                             | 默认                                            |
+| --------------------------------------------------------------- | -------------------------------- | ----------------------------------------------- |
+| `APP_ENV`                                                     | `development` / `production` | development                                     |
+| `SERVER_PORT`                                                 | 后端端口                         | 8080                                            |
+| `DB_HOST` `DB_PORT` `DB_USER` `DB_PASSWORD` `DB_NAME` | MySQL 连接                       | 127.0.0.1 / 3306 / root / — / personal_website |
+| `JWT_SECRET`                                                  | 签名密钥，至少 16 位             | —                                              |
+| `JWT_TTL_HOURS`                                               | 登录有效期（小时）               | 168                                             |
+| `ADMIN_USERNAME` `ADMIN_PASSWORD`                           |                                  |                                                 |
+| `SITE_NAME` `SITE_DESCRIPTION` `SITE_ICP`                 | 站点信息                         | 个人网站 / … / 空                              |
+| `UPLOAD_DIR`                                                  | 图片存放目录                     | ./uploads                                       |
+| `UPLOAD_MAX_MB`                                               | 单张图片大小上限                 | 10                                              |
+| `CORS_ORIGINS`                                                | 允许的前端来源，逗号分隔         | http://localhost:5173,http://127.0.0.1:5173     |
 
 ## 数据库表
 
@@ -187,12 +177,12 @@ npm run preview    # 预览构建结果
 
 ## 和最初方案的差异
 
-| 方案里写的 | 实际做的 | 原因 |
-| --- | --- | --- |
+| 方案里写的                            | 实际做的                  | 原因                                                                |
+| ------------------------------------- | ------------------------- | ------------------------------------------------------------------- |
 | handler → service → repository 三层 | 合并为 handler → service | 项目规模下多一层只是转发，service 直接持有 `*gorm.DB`，需要时再拆 |
-| Swagger 文档 | `docs/api.md` 手写文档 | 少一个依赖，维护成本更低 |
-| md-editor-v3 | 自研轻量 Markdown 编辑器 | 体积小、样式统一、无额外依赖；功能覆盖日常写作 |
-| 动态的英文标识 | 统一用 `moments` | 与中文「动态」对应，接口/表名一致 |
+| Swagger 文档                          | `docs/api.md` 手写文档  | 少一个依赖，维护成本更低                                            |
+| md-editor-v3                          | 自研轻量 Markdown 编辑器  | 体积小、样式统一、无额外依赖；功能覆盖日常写作                      |
+| 动态的英文标识                        | 统一用 `moments`        | 与中文「动态」对应，接口/表名一致                                   |
 
 ## 部署
 
